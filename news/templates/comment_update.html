@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>댓글 수정</title>
+    <link rel="stylesheet" href="{% static 'comment_update_style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&amp;subset=korean" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+    {% block top %}
+    <div class="head">
+            <a href="{% url 'detail' comment.news.id %}"><button class="btn-back"> 다시 글보러가기 </button></a>
+            지원이 블로그
+    </div>
+    {% endblock %}
+    
+    {% block content %}
+    <form action="{% url 'comment_update' comment.id %}" method="POST">
+        {% csrf_token %}
+        <textarea type="text" name="content">{{comment.content}}</textarea>
+        <input type="submit" value="글수정하기">
+    </form>
+    {% endblock %}
+</body>
+</html>

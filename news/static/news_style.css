@@ -1,0 +1,68 @@
+
+.head{
+    font-family: 'Do Hyeon', sans-serif;
+    color:white;
+    font-size:20px;
+    background-color: #212529;
+    border-bottom:3px #fed136 solid;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+body {
+    font-family: 'Do Hyeon', sans-serif;
+    overflow-x: hidden;
+    font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    background-image: url("wallpaper.jpg");
+
+}
+
+h1 {
+    font-family: 'Do Hyeon', sans-serif;
+    color:gray;
+    text-align: center;
+  }
+
+ p{
+    font-family: 'Do Hyeon', sans-serif;
+    /*width        : 800px;     /* 너비(실질적인 크기). */
+    /*text-overflow: ellipsis;  /* 위에 설정한 크기 보다 길면 ...표시 */
+    /*white-space  : nowrap;    /* 줄바꿈 하지 않기. */
+    /*overflow     : hidden;    /* 내용이 길면 감추기 */
+    /*display      : block;     /* ie6이상 현재요소를 블럭처리 */
+    /*text-align:  center;*/
+   }
+
+.content_one {
+    background-color: #F5F5F5 ;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 18%;
+    margin-right: 20%;
+    padding-top: 20px;
+    height: 500px;
+    width: 600px;
+    opacity:0.9;
+    font-family: 'Do Hyeon', sans-serif;
+}
+  
+.btn-detail, .btn-update, .btn-delete, .btn-comment {
+    font-family: 'Do Hyeon', sans-serif;
+    margin-top: none;
+    display: inline-block;
+    float : right;
+    margin-right: 30px; 
+    font-size: 12px;
+    right:0;
+    background-color: #fed136; /* Green */
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+}

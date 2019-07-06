@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% block top %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>뉴스 작성</title>
+    <link rel="stylesheet" href="{% static 'new_style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&amp;subset=korean" rel="stylesheet">
+</head>
+{% endblock %}
+<body>
+    {% block head %}
+        <div class="head"> 
+            JEEWON NEWS
+        </div>
+        <h1> 작성중 </h1>
+    {% endblock %}
+    
+    {% block content %}
+    
+            <form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <input type="submit" value="글저장">
+            </form>
+            
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block top %}
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Blog</title>
+     <link rel="stylesheet" href="{% static 'new_style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&amp;subset=korean" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Plugin CSS -->
+  <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <!--ink href="css/freelancer.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="{% static 'news_style.css' %}">
+  
+  {% endblock %}
+</head>
+<body>
+   
+    {% block head %}
+        <div class="head"> 
+            JEEWON BLOG
+        </div>
+        <h1> "BLOGGGG" </h1>
+        
+        <br>
+    <form action="{% url 'search' %}">
+        Search Tag:<input type="text" name="tag" value="{{tag}}">
+        <input type="submit" value="검색">
+    </form>
+    {% endblock %}
+    
+    
+    {% block content %}
+        <div class="content">
+            {% for news in news %}{% csrf_token %}
+            <div class="content_one">
+                {% if news.photo.url is not None %}
+                <p>사진:<img src="{{news.photo.url}}" alt="" width="200px"></p>
+                {% endif %}
+                <p>작성자:{{news.user}}</p>
+                <p>제목:{{news.title}}</p>
+                <p>내용:{{news.summary}}</p>
+                <p>시간:{{news.time}}</p>
+                  
+                    <div class="btn">
+                        <a href="{% url 'detail' news.id %}"><button class="btn-detail">자세히보기</button></a>
+                        <a href="{% url 'update' news.id %}">{% csrf_token %}
+                            <button class= "btn-update">{% csrf_token %}
+                            수정하기</button></a>
+                        <a href="{% url 'delete' news.id %}" method="POST" >{% csrf_token %}
+                        <button class= "btn-delete">{% csrf_token %}
+                            삭제하기</button></a>
+                    </div>
+                </p>
+            </div>
+            {%endfor%}
+        </div>
+    {% endblock %}
+</body>
+    
+</html>

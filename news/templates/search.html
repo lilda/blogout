@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block top %}
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>지원이의 뉴스</title>
+     <link rel="stylesheet" href="{% static 'new_style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&amp;subset=korean" rel="stylesheet">
+
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Plugin CSS -->
+  <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <!--ink href="css/freelancer.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="{% static 'news_style.css' %}">
+ {% endblock %}
+ </head>
+ 
+<body>
+    
+    {% block head %}
+        <div class="head"> 
+            JEEWON NEWS
+        </div>
+        <h1> 오늘의 뉴스 </h1>
+    {% endblock %}
+    
+    {% block content %}
+        <div class="content">
+        {% for news in newss %}
+        <div class="content_one">
+            <p class="news_title">제목 : {{news.title}}</p>
+            {% if news.image.url is not None %}
+             <p>사진:<img src="{{news.image.url}}" alt="" width="200px"></p>
+             {% endif %}
+            <p class="news_content">내용 : {{news.content}}</p>
+            작성자 : {{news.user}}<br>
+        {% endfor %}
+    
+    {% endblock %}
+</body>
+</html>

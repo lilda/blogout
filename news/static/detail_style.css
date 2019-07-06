@@ -1,0 +1,96 @@
+.head{
+    font-family: 'Do Hyeon', sans-serif;
+    color:white;
+    font-size:20px;
+    background-color: #212529;
+    border-bottom:3px #fed136 solid;
+    padding: 20px;
+    margin-top : 100px;
+}
+
+body {
+    font-family: 'Do Hyeon', sans-serif;
+    overflow-x: hidden;
+    font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    background-image: url("wallpaper.jpg");
+
+}
+
+.content {
+    background-color: #F5F5F5 ;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    margin-left: 18%;
+    margin-top: 10px;
+    margin-right: 20%;
+    height: 300px;
+    width: 900px;
+    opacity:0.85;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.comment_create, .comment_list {
+    padding: 100px;
+    margin-left: 100px;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.comment_content{
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.comment_image{
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.comment_one{
+    background-color: #F5F5F5 ;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    padding: 30px;
+    margin-top:10px;
+    margin-bottom:10px;
+    margin-left:80px;
+    margin-right:300px;
+    opacity:0.9;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.btn-back {
+    font-family: 'Do Hyeon', sans-serif;
+    display: inline-block;
+    float : right;
+    margin-right: 30px; 
+    font-size: 12px;
+    right:0;
+    background-color: #fed136; /* Green */
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 13px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.btn-comment-delete, .btn-comment-update {
+    font-family: 'Do Hyeon', sans-serif;
+    display: inline-block;
+    margin-right: 30px; 
+    font-size: 12px;
+    right:0;
+    background-color: #fed136; /* Green */
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 13px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+

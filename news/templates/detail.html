@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block top %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>자세히보기</title>
+        <link rel="stylesheet" href="{% static 'detail_style.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&amp;subset=korean" rel="stylesheet">
+        
+        <style type="text/css">
+        .like{
+            color: BLUE;
+        }
+        
+        .unlike {
+            color: RED;
+            
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+    <div class="head"> 
+        JEEWON NEWS/{{request.user}}님 안녕하세요
+        <a href="{% url 'news' %}"><button class="btn-news">돌아가기</button></a>
+    
+    </div>   
+    
+    <div class="content">
+        {% if comment.photo.url is not none %}
+            <p>사진:<img src="{{news.photo.url}}" alt="" width="200px"></p>
+        {% endif %}    
+            <p>작성자:{{news.user}}</p>
+            <p>제목:{{news.title}}</p>
+            <p>내용:{{news.content|tag_link:news }}<span></span></p>
+            <p>시간:{{news.time}}</p>
+            
+            {% if is_like %}
+            <a href="{% url 'like' news.id %}"><button class="like>">LIKE</button></a>
+            {% else %}
+            <a href="{% url 'like' news.id %}"><button class="unlike">UNLIKE</button></a>
+            {% endif %}
+                </div>
+    </div>
+    
+    <div class="comment_create">
+            <form action="{% url 'comment_create' news.id %}" method="POST">
+                {% csrf_token %}
+            <textarea name="content" id="" cols="30" rows="10"></textarea>
+            <input type="submit" value="댓글남기기">
+            </form>
+    </div>
+    
+    <div class="comment_list">
+        {% for comment in comments %}{% csrf_token %}
+            <div class="comment_one">
+                {% if comment.photo.url is not none %}
+                    <p>사진:<img src="{{comment.photo.url}}" alt="" width="200px"></p>
+                {% endif %}
+                <p> 댓글 작성자 : {{comment.user}} </p>
+                <p class="comment_content">댓글 : {{comment.content}}</p>
+                
+                <br>
+
+             
+                <div class="btn">
+                    <a href="{% url 'comment_update' comment.id %}">
+                        <button class="btn-update">
+                            {% csrf_token %}
+                            수정하기</button></a>
+                    <a href="{% url 'comment_delete' comment.id %}" method="POST">{% csrf_token %}
+                        <button class="btn-delete">
+                            {% csrf_token %}
+                            삭제하기</button></a>
+                </div>
+            </div>
+        {% endfor%}
+    </div>
+    {% endblock %}
+</body>
+</html>

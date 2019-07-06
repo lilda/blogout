@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head class="head">
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>뉴스 수정</title>
+    {% endblock %}
+</head>
+<body class="body">
+    
+    {% block content %}
+        <h1>뉴스 수정하는 곳</h1>
+        <form action="{% url 'update' news.id %}" method="POST">
+            {% csrf_token %}
+            <input name="title" type="text" value="{{news.title}}">
+            <br>
+            <textarea name="content" id="" cols="30" rows="10">
+                {{news.content}}
+            </textarea>
+            <br>
+            <input type="submit" value="저장하기">
+        </form>   
+    {% endblock %}
+</body>
+</html>
