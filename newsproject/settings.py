@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'cb0j!4chbk+xk1oha$*e0=p!owqu%#^5np$_n6u!3^5&t&f-!8'
 import os
-SECRET_KEY= os.environ.get('DJANGO_SECRET_KEY', '(cb0j!4chbk+xk1oha$*e0=p!owqu%#^5np$_n6u!3^5&t&f-!8')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cb0j!4chbk+xk1oha$*e0=p!owqu%#^5np$_n6u!3^5&t&f-!8')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -142,5 +142,6 @@ MEDIA_URL = '/media/'
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
