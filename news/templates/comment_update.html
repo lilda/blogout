@@ -27,5 +27,11 @@
         <input type="submit" value="글수정하기">
     </form>
     {% endblock %}
+    
+                ///////////////// 댓글 작성하기 /////////////////
+  $(document).on('click', '.commnet-icon', function(){
+    var pk = $(this).attr('name');
+    $("#add-comment-post"+pk+">input[type=text]").focus();
+  });
 </body>
 </html>

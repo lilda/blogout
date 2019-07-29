@@ -19,6 +19,7 @@ import news.views
 import account.views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,11 +29,11 @@ urlpatterns = [
     path('update/<int:news_id>', news.views.update, name="update"),
     path('detail/<int:news_id>', news.views.detail, name="detail"),
     path('search/', news.views.search, name="search"),
-    path('like/<int:news_id>', news.views.like, name="like"),
+    path('like/>', news.views.news_like, name="news_like"),
     #path('tag/', news.views.tag_list, name='tag_list'),
-    path('comment_create/<int:news_id>', news.views.comment_create, name="comment_create"),
-    path('comment_delete/<int:comment_id>', news.views.comment_delete, name="comment_delete"),
-    path('comment_update/<int:comment_id>', news.views.comment_update, name="comment_update"),
+    path('comment_create/', news.views.comment_create, name="comment_create"),
+    path('comment_delete/', news.views.comment_delete, name="comment_delete"),
+    path('comment_update/', news.views.comment_update, name="comment_update"),
     path('warning/<int:comment_id>', news.views.warning, name="comment_update"),
     path("account/sign_in", account.views.sign_in, name="sign_in"),
     path("account/sign_up", account.views.sign_up, name="sign_up"),

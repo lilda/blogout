@@ -18,7 +18,15 @@ class News(models.Model):
     time=models.DateTimeField()
     photo=models.ImageField(upload_to="images/", blank=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
+    like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                            blank=True,
+                                            related_name='like_user_set',
+                                            through='Like')
         
+    @property
+    def like_count(self):
+        return self.like_user_set.count()
+       
     def __str__ (self):
         return self.title +" - "+ self.content
 
@@ -35,14 +43,22 @@ class Comment(models.Model):
     photo=models.ImageField(upload_to="images/", blank=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     
-    
+    class Meta:
+        ordering = ['-id']
+
     def __str__ (self):
         return self.content
+
 
 class Like(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     news=models.ForeignKey(News, on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = (
+             ('user', 'news')
+        )
 
 class Hashtag(models.Model):
     news=models.ForeignKey(News, on_delete=models.CASCADE)

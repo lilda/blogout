@@ -1,6 +1,14 @@
+import json
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.utils import timezone
+from django.views.decorators.http import require_POST
 from .models import *
 from .forms import NewsPost
 from django.contrib.auth.models import User
@@ -70,8 +78,44 @@ def update(request, news_id):
         if news.user!=request.user:
             return redirect('news')
 
+def comment_create(request, news_id):  #ajax
+    pk = request.POST.get('pk')
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.method=='POST':
+        comment=Comment()
+        comment.content = request.POST['content']
+        comment.time = timezone.now()
+        comment.news=get_object_or_404(News, pk=news_id)
+        comment.user=request.user
+        comment.save()
+        return render(request, 'comment_create_ajax.html', {'comment':comment,})
+    return redirect("news")
 
-def comment_create(request, news_id):
+def comment_delete(request):
+    pk = request.POST.get('pk')
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.method == 'POST' and request.user == comment.user:
+        comment.delete()
+        message = '삭제완료'
+        status = 1
+        
+    else:
+        message = '잘못된 접근입니다.'
+        status = 0
+    
+    return HttpResponse(json.dumps({'message':message, 'status':status, }), content_type="application/json") #ajax
+
+def ccomment_update(request):
+    pk = request.POST.get('pk')
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.method == 'POST':
+        comments = news.comment_set.all()[4:]
+        return render(request, 'comment_update_ajax.html', {
+            'comments': comments,
+        })
+    return redirect("news") #ajax
+
+def ccomment_create(request, news_id): #ajax
     
     if not request.user.is_authenticated:
         return redirect('new')
@@ -85,13 +129,14 @@ def comment_create(request, news_id):
             comment.save()
             return redirect("detail", comment.news.id)   
 
-def comment_delete(request, comment_id):
+def ccomment_delete(request, comment_id):
     comment=get_object_or_404(Comment, pk=comment_id)
-    
+
     if not request.user.is_authenticated:
         return redirect('news')
     #왜 delete는 post가 아니라 get방식을 사용해야 하는가? post쓰면 에러뜸!!
         #The view news.views.comment_delete didn't return an HttpResponse object. It returned None instead.
+   
     if request.method =="GET":  
         if comment.user==request.user:
             comment.delete()
@@ -105,6 +150,7 @@ def comment_delete(request, comment_id):
         
     
 def comment_update(request, comment_id):
+    pk = request.POST.get('pk')
     comment=get_object_or_404(Comment, pk=comment_id)
     
     if not request.user.is_authenticated:
@@ -128,9 +174,43 @@ def comment_update(request, comment_id):
 def warning(request, comment_id):
     comment=get_object_or_404(Comment, pk=comment_id)
     return redirect('warning')
+
+@login_required
+@require_POST
+def news_like(request):
+    pk = request.POST.get('pk', None)
+    news = get_object_or_404(News, pk=pk)
+    news_like, news_like_created = news.like_set.get_or_create(user=request.user)
     
-    
-def like(request, news_id):
+    if not news_like_created:
+        news_like.delete()
+        message = "좋아요 취소"
+    else:
+        message = "좋아요"
+        
+    context = {'like_count':news.like_count,
+                'message':message }
+                
+    return HttpResponse(json.dumps(context), content_type="applications/json")
+        
+def lllike(request, news_id):
+    if not request.user.is_authenticated:
+         return redirect('news')
+    #좋아요 표시 할 글 찾기 
+    news = get_object_or_404(News, id=news_id);
+    user = request.user;
+    #이미 좋아요 표시했는 지 확인
+    if is_like(news, user):
+        like = Like.objects.filter(news=news, user=user)
+        like.delete()
+        return redirect("detail", news_id);
+    like = Like();
+    like.news = news;
+    like.user = user;
+    like.save();
+    return redirect("detail", news_id);
+        
+def llike(request, news_id):
     if not request.user.is_authenticated:
          return redirect('news')
     #좋아요 표시 할 글 찾기 
@@ -148,8 +228,14 @@ def like(request, news_id):
         obj[0].delete()
     return redirect('news')
     
-def is_like(news, user):
+def iis_like(news, user):
     if (len(Like.objects.filter(news=news, user=user)) != 0):
+        return True;
+    return False;
+
+    
+def iiis_like(news, user):
+    if Like.objects.filter(news=news, user=user).exists():
         return True;
     return False;
 
@@ -215,8 +301,3 @@ def save_tag(news):
         hashtag.save()
         
         
-
-    
-
-def link(request):
-        pass    

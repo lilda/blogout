@@ -11,7 +11,10 @@ db.sqlite3
 media
 
 
+
+
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*global.yml
+!.elasticbeanstalk/*.global.yml
