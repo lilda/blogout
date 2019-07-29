@@ -21,7 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'cb0j!4chbk+xk1oha$*e0=p!owqu%#^5np$_n6u!3^5&t&f-!8'
-SECRET_KEY =os.environ.get('DJANGO_SECRET_KEY', '(cb0j!4chbk+xk1oha$*e0=p!owqu%#^5np$_n6u!3^5&t&f-!8)')
+import os
+SECRET_KEY= os.environ.get('DJANGO_SECRET_KEY', '(cb0j!4chbk+xk1oha$*e0=p!owqu%#^5np$_n6u!3^5&t&f-!8')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'newsproject.urls'
